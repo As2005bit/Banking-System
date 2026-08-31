@@ -1,0 +1,228 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  background: #f4f6f9;
+
+  color: #222;
+}
+
+
+/* LOGIN */
+
+.login {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: #173f5f;
+}
+
+.login-box {
+
+  background: white;
+
+  width: 380px;
+
+  padding: 40px;
+
+  border-radius: 15px;
+
+  text-align: center;
+}
+
+.login-box input {
+
+  width: 100%;
+
+  padding: 12px;
+
+  margin: 8px 0;
+
+  border: 1px solid #ddd;
+
+  border-radius: 6px;
+}
+
+button {
+
+  padding: 12px 20px;
+
+  background: #173f5f;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+}
+
+.login-box button {
+
+  width: 100%;
+
+  margin-top: 10px;
+}
+
+.error {
+
+  background: #ffe0e0;
+
+  color: #a00000;
+
+  padding: 10px;
+
+  border-radius: 5px;
+}
+
+
+/* HEADER */
+
+header {
+
+  background: #173f5f;
+
+  color: white;
+
+  padding: 20px 7%;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+header a {
+
+  color: white;
+
+  text-decoration: none;
+}
+
+
+/* MAIN */
+
+main {
+
+  width: 88%;
+
+  max-width: 1200px;
+
+  margin: 30px auto;
+}
+
+
+/* BALANCE */
+
+.balance {
+
+  background: #173f5f;
+
+  color: white;
+
+  padding: 30px;
+
+  border-radius: 15px;
+
+  margin: 25px 0;
+}
+
+
+/* CARDS */
+
+.grid {
+
+  display: grid;
+
+  grid-template-columns:
+      repeat(
+          auto-fit,
+          minmax(250px, 1fr)
+      );
+
+  gap: 20px;
+}
+
+.card {
+
+  background: white;
+
+  padding: 25px;
+
+  border-radius: 12px;
+
+  margin-top: 20px;
+
+  box-shadow:
+      0 4px 15px
+      rgba(0,0,0,0.08);
+}
+
+.card input {
+
+  width: 100%;
+
+  padding: 11px;
+
+  margin: 7px 0;
+
+  border: 1px solid #ddd;
+
+  border-radius: 5px;
+}
+
+
+/* TABLE */
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+th,
+td {
+
+  padding: 12px;
+
+  border-bottom:
+      1px solid #ddd;
+
+  text-align: left;
+}
+
+th {
+
+  background: #f4f6f9;
+}
+
+
+@media(max-width:600px) {
+
+  main {
+      width: 94%;
+  }
+
+  .login-box {
+      width: 90%;
+  }
+
+  table {
+      font-size: 12px;
+  }
+}
