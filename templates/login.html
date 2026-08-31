@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MyBank Login</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+<div class="login">
+
+<div class="login-box">
+
+<h1>🏦 MyBank</h1>
+<p>Banking Management System</p>
+
+{% if error %}
+
+<div class="error">
+{{ error }}
+</div>
+
+{% endif %}
+
+<form method="POST" action="/login">
+
+<input
+name="account_number"
+placeholder="Account Number"
+required>
+
+<input
+type="password"
+name="password"
+placeholder="Password"
+required>
+
+<button>
+Login
+</button>
+
+</form>
+
+<p>
+New customer?
+<a href="/register">
+Create Account
+</a>
+</p>
+
+<hr>
+
+<small>
+Demo: 1001 / 1234
+</small>
+
+</div>
+</div>
+</body>
+</html>
