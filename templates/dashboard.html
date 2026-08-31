@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>MyBank Dashboard</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<header>
+
+<h2>🏦 MyBank</h2>
+
+<a href="/logout">
+Logout
+</a>
+</header>
+
+
+<main>
+<h1>
+Welcome, {{ account["name"] }}
+</h1>
+
+<p>
+Account Number:
+{{ account["account_number"] }}
+</p>
+
+
+<div class="balance">
+
+<p>Available Balance</p>
+
+<h1>
+₹{{ "%.2f"|format(account["balance"]) }}
+</h1>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h2>💰 Deposit</h2>
+<input
+id="deposit"
+type="number"
+placeholder="Amount">
+
+<button onclick="depositMoney()">
+Deposit
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>💸 Withdraw</h2>
+
+<input
+id="withdraw"
+type="number"
+placeholder="Amount">
+
+<button onclick="withdrawMoney()">
+Withdraw
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>🔄 Transfer</h2>
+<input
+id="receiver"
+placeholder="Receiver Account">
+
+<input
+id="transfer"
+type="number"
+placeholder="Amount">
+
+<button onclick="transferMoney()">
+Transfer
+</button>
+
+</div>
+
+
+<div class="card">
+
+<h2>👤 Profile</h2>
+
+<input
+id="name"
+value="{{ account['name'] }}"
+placeholder="Name">
+
+<input
+id="email"
+value="{{ account['email'] }}"
+placeholder="Email">
+
+<input
+id="phone"
+value="{{ account['phone'] }}"
+placeholder="Phone">
+
+<button onclick="updateProfile()">
+Update
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+<h2>📜 Transaction History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+<th>Type</th>
+<th>Amount</th>
+<th>Description</th>
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="history">
+
+</tbody>
+
+</table>
+
+</div>
+
+</main>
+
+
+<script>
+
+async function depositMoney() {
+    let amount =
+        document.getElementById(
+            "deposit"
+        ).value;
+
+    let form =
+        new URLSearchParams();
+
+    form.append("amount", amount);
+    let response =
+        await fetch("/deposit", {
+
+            method: "POST",
+
+            body: form
+        });
+
+    let data =
+        await response.json();
+    alert(data.message);
+
+    if (response.ok)
+        location.reload();
+}
+
+
+async function withdrawMoney() {
+    let amount =
+        document.getElementById(
+            "withdraw"
+        ).value;
+
+    let form =
+        new URLSearchParams();
+
+    form.append("amount", amount);
+
+    let response =
+        await fetch("/withdraw", {
+
+            method: "POST",
+
+            body: form
+        });
+
+    let data =
+        await response.json();
+
+    alert(data.message);
+
+    if (response.ok)
+        location.reload();
+}
+
+
+async function transferMoney() {
+    let receiver =
+        document.getElementById(
+            "receiver"
+        ).value;
+
+    let amount =
+        document.getElementById(
+            "transfer"
+        ).value;
+
+    let form =
+        new URLSearchParams();
+
+    form.append("receiver", receiver);
+    form.append("amount", amount);
+
+    let response =
+        await fetch("/transfer", {
+
+            method: "POST",
+
+            body: form
+        });
+    let data =
+        await response.json();
+
+    alert(data.message);
+
+    if (response.ok)
+        location.reload();
+}
+
+
+async function updateProfile() {
+    let name =
+        document.getElementById(
+            "name"
+        ).value;
+
+    let email =
+        document.getElementById(
+            "email"
+        ).value;
+
+    let phone =
+        document.getElementById(
+            "phone"
+        ).value;
+
+    let form =
+        new URLSearchParams();
+
+    form.append("name", name);
+    form.append("email", email);
+    form.append("phone", phone);
+
+    let response =
+        await fetch("/profile", {
+
+            method: "POST",
+
+            body: form
+        });
+
+    let data =
+        await response.json();
+
+    alert(data.message);
+
+    if (response.ok)
+        location.reload();
+}
+
+
+async function loadHistory() {
+    let response =
+        await fetch("/transactions");
+
+    let data =
+        await response.json();
+
+    let history =
+        document.getElementById(
+            "history"
+        );
+
+    history.innerHTML = "";
+
+    data.forEach(item => {
+
+        history.innerHTML += `
+
+        <tr>
+
+            <td>
+                ${item.type}
+            </td>
+
+            <td>
+                ₹${item.amount}
+            </td>
+
+            <td>
+                ${item.description}
+            </td>
+
+            <td>
+                ${item.date}
+            </td>
+
+        </tr>
+
+        `;
+    });
+}
+
+loadHistory();
+</script>
+</body>
+</html>
